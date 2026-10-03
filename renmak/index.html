@@ -64,8 +64,8 @@ input{font:inherit;color:inherit}
 .hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(32px,6vw,96px);align-items:center;padding-block:clamp(32px,6vw,72px) 40px}
 .eyebrow{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 22px}
 .hero h1{font-family:var(--f-display);font-weight:500;font-size:clamp(46px,6.6vw,88px);line-height:.96;letter-spacing:-.055em;margin:0 0 22px;text-wrap:balance}
-.hero .lede{font-size:clamp(17px,1.6vw,20px);color:var(--muted);max-width:30ch;margin:0 0 36px;text-wrap:balance}
-.hero .lede b{color:var(--fg);font-weight:500}
+.lede{font-size:clamp(17px,1.6vw,20px);color:var(--muted);max-width:30ch;margin:0 0 36px;text-wrap:balance}
+.lede b{color:var(--fg);font-weight:500}
 .jump-label{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
 .jump{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:36px}
 .chip{border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px;transition:background-color .25s var(--ease),border-color .25s,color .25s}
@@ -83,7 +83,7 @@ input{font:inherit;color:inherit}
 .phone-col{display:flex;flex-direction:column;align-items:center;gap:14px;width:392px;max-width:100%}
 .phone{width:100%;height:800px;border-radius:56px;padding:10px;background:var(--bezel);border:1px solid var(--line);position:relative}
 .app{position:relative;height:100%;border-radius:46px;overflow:hidden;background:var(--bg);color:var(--fg);font-size:15px;isolation:isolate}
-.island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:104px;height:31px;border-radius:20px;background:#000;z-index:131}
+.island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:104px;height:31px;border-radius:20px;background:#000;z-index:131;color:var(--isl-fg);overflow:hidden;display:flex;align-items:center;transition:width .65s var(--spring),height .65s var(--spring),border-radius .65s var(--spring)}
 .status{position:absolute;inset:0 0 auto 0;height:52px;display:flex;align-items:center;justify-content:space-between;padding:4px 30px 0 34px;font-size:15px;font-weight:600;z-index:130;letter-spacing:-.01em;transition:color .5s var(--ease)}
 .app.splashing .status{color:var(--sp-fg)}
 .app.splashing .homebar{background:var(--sp-fg)}
@@ -350,6 +350,7 @@ input{font:inherit;color:inherit}
 .grab{width:38px;height:4px;border-radius:4px;background:var(--line);margin:10px auto 2px;flex:none}
 .sheet-body{overflow-y:auto;padding:16px 24px 36px;display:flex;flex-direction:column;gap:20px;scrollbar-width:none}
 .sheet-body::-webkit-scrollbar{display:none}
+.sheet-body > *{flex-shrink:0}
 .sheet h3{font-family:var(--f-display);font-weight:500;font-size:22px;margin:0;letter-spacing:-.04em}
 .sugs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .sug{border:1px solid var(--line);border-radius:16px;padding:10px 10px 9px;text-align:left;display:flex;flex-direction:column;gap:4px;background:var(--bg);transition:transform .3s var(--spring),border-color .2s}
@@ -465,6 +466,127 @@ input{font:inherit;color:inherit}
 
 footer{margin-top:clamp(72px,10vw,128px);padding-top:28px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;color:var(--muted);font-size:13.5px}
 
+[hidden]{display:none!important}
+/* ---------- Capa wow ---------- */
+:root{--isl-fg:#ECE7DE;--isl-muted:#9A968E;--isl-pos:#4CCB84;--isl-neg:#F26B5B;--isl-warn:#D2B06E;--inv-pos:#4CCB84;--inv-neg:#F26B5B;--inv-warn:#D2B06E;--grain-o:.05}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--inv-pos:#18814A;--inv-neg:#C23B2B;--inv-warn:#8C6A2E;--grain-o:.07}}
+:root[data-theme="dark"]{--inv-pos:#18814A;--inv-neg:#C23B2B;--inv-warn:#8C6A2E;--grain-o:.07}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:200;opacity:var(--grain-o);background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1.2 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+
+/* historia con teléfono fijo */
+.story{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:clamp(32px,6vw,96px)}
+.story-text{min-width:0}
+.intro{min-height:calc(100vh - 68px);display:flex;flex-direction:column;justify-content:center;padding-block:40px 64px}
+.kin{font-family:var(--f-display);font-weight:500;font-size:clamp(46px,6.8vw,96px);line-height:1;letter-spacing:-.058em;margin:0}
+.kin .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
+.kin .w > span{display:inline-block;animation:wordUp 1.1s var(--ease) both}
+@keyframes wordUp{from{transform:translateY(110%)}to{transform:none}}
+.roller{display:block;height:1.1em;overflow:hidden;color:var(--muted);font-family:var(--f-display);font-weight:500;font-size:clamp(46px,6.8vw,96px);line-height:1.1;letter-spacing:-.058em;margin:0 0 32px;animation:fadein 1s .5s var(--ease) both}
+.roller > span{display:block;transition:transform .9s var(--ease)}
+.roller > span > span{display:block;height:1.1em;white-space:nowrap}
+.scroll-cue{display:flex;align-items:center;gap:14px;margin-top:44px;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.scroll-cue i{width:1px;height:40px;background:var(--line);position:relative;overflow:hidden;flex:none}
+.scroll-cue i::after{content:"";position:absolute;left:0;right:0;top:-40%;height:40%;background:var(--fg);animation:cue 2.2s var(--ease) infinite}
+@keyframes cue{to{top:100%}}
+.story-h{font-family:var(--f-display);font-weight:500;font-size:clamp(34px,4.4vw,58px);letter-spacing:-.05em;line-height:1;margin:24px 0 0;max-width:13ch;text-wrap:balance}
+.step{min-height:80vh;display:flex;flex-direction:column;justify-content:center;max-width:31rem;transition:opacity .7s var(--ease),transform .9s var(--ease)}
+.js-story .idea-step{opacity:.18;transform:translateX(-10px)}
+.js-story .idea-step.active{opacity:1;transform:none}
+.idea-step .n{font-family:var(--f-mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-bottom:28px;display:flex;align-items:center;gap:14px}
+.idea-step .n::after{content:"";width:56px;height:1px;background:var(--line)}
+.idea-step h3{font-family:var(--f-display);font-weight:500;font-size:clamp(32px,3.6vw,48px);letter-spacing:-.055em;line-height:1;margin:0 0 20px;text-wrap:balance}
+.idea-step p{color:var(--muted);font-size:17px;line-height:1.65;margin:0 0 30px;max-width:40ch}
+.idea-step .foot{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.story-phone{position:relative}
+.stick{position:sticky;top:calc(68px + (100vh - 68px - var(--s,1) * 864px) / 2);display:flex;justify-content:center}
+.pstage{width:392px;transform:scale(var(--s,1));transform-origin:top center;height:calc(var(--s,1) * 864px)}
+.phone{transition:transform .9s var(--ease)}
+.phone::after{content:"";position:absolute;inset:0;border-radius:56px;pointer-events:none;z-index:5;background:radial-gradient(520px circle at var(--gx,30%) var(--gy,0%),rgba(255,255,255,.13),transparent 45%);mix-blend-mode:soft-light}
+@media (max-width:960px){
+  .story{display:flex;flex-direction:column;gap:0}
+  .story-text,#steps{display:contents}
+  .intro{order:0;min-height:0;padding-block:48px 44px}
+  .story-phone{order:1}
+  .stick{position:static}
+  .pstage{transform:none;height:auto;width:auto;display:flex;justify-content:center}
+  .story-h{order:2;margin-top:96px}
+  .step{order:3;min-height:0;padding-block:44px;border-bottom:1px solid var(--line);max-width:none}
+  .scroll-cue{display:none}
+}
+
+/* isla dinámica */
+.island.compact{width:196px}
+.island.expanded{width:calc(100% - 22px);height:86px;border-radius:32px}
+.isl{opacity:0;width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 8px;font-size:12.5px;white-space:nowrap;filter:blur(4px);transition:opacity .2s,filter .3s}
+.island.compact .isl,.island.expanded .isl{opacity:1;filter:none;transition:opacity .35s .2s,filter .45s .2s}
+.isl > span{display:flex;align-items:center;gap:8px;min-width:0}
+.isl .tx{overflow:hidden;text-overflow:ellipsis;max-width:92px}
+.isl .dot{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#2b2b2d;flex:none}
+.isl .dot svg{width:12px;height:12px}
+.isl .pos{color:var(--isl-pos)} .isl .neg{color:var(--isl-neg)} .isl .warn{color:var(--isl-warn)}
+.island.expanded .isl{padding:0 18px;gap:14px}
+.isl-big{width:48px;height:48px;border-radius:15px;background:#2b2b2d;display:grid;place-items:center;flex:none}
+.isl-big svg{width:22px;height:22px}
+.isl-big.pulse svg{animation:pulse 1s var(--ease) infinite}
+.isl-t{flex:1;min-width:0;display:flex;flex-direction:column!important;align-items:flex-start!important;gap:4px!important}
+.isl-t b{font-weight:500;font-size:14.5px;letter-spacing:-.01em}
+.isl-t i{font-style:normal;font-size:11.5px;color:var(--isl-muted)}
+.isl-amt{font-weight:300;font-size:24px;letter-spacing:-.05em}
+.isl .spin{width:13px;height:13px;border:1.5px solid #4a4a4c;border-top-color:var(--isl-fg);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* aura */
+.hero-open{position:relative;isolation:isolate}
+.aura{position:absolute;inset:-70px -60px -30px;z-index:-1;pointer-events:none;filter:blur(40px)}
+.aura i{position:absolute;left:10%;top:10%;border-radius:50%;width:230px;height:230px;background:color-mix(in srgb,var(--tint) 24%,transparent);animation:drift 13s ease-in-out infinite alternate}
+.aura i:nth-child(2){left:auto;right:6%;top:30%;width:190px;height:190px;background:color-mix(in srgb,var(--fg) 9%,transparent);animation-duration:10s;animation-delay:-5s}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(50px,26px) scale(1.18)}100%{transform:translate(14px,-22px) scale(.92)}}
+
+/* cartera en capas */
+.wallet{position:relative;--step:60px;height:calc((var(--n) - 1) * var(--step) + 204px);transition:height .75s var(--spring)}
+.wallet.open{--step:216px}
+.wc{position:absolute;left:0;right:0;top:calc(var(--i) * var(--step));height:204px;border-radius:24px;padding:20px 22px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;overflow:hidden;transition:top .8s var(--spring),transform .4s var(--spring);transition-delay:calc(var(--i) * 35ms);-webkit-tap-highlight-color:transparent}
+.wc:active{transform:scale(.975)}
+.wc-h{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px;font-weight:500;letter-spacing:-.01em}
+.wc-h .amt{font-weight:400}
+.wc .bigs{display:block;font-weight:200;font-size:38px;letter-spacing:-.055em;line-height:1;margin-top:8px}
+.wc-f{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;font-size:12px}
+.wc-f b{display:block;font-weight:400;font-size:13px;margin-top:4px}
+.w-linen{background:var(--bg);border:1px solid var(--line);background-image:repeating-linear-gradient(135deg,var(--veil2) 0 1px,transparent 1px 8px)}
+.w-paper{background:var(--card);border:1px solid var(--line)}
+.w-stone{background:color-mix(in srgb,var(--inv-bg) 84%,var(--muted));color:var(--inv-fg)}
+.w-ink{background:var(--inv-bg);color:var(--inv-fg)}
+.w-stone .label,.w-ink .label{color:var(--inv-muted)}
+.w-stone .pos,.w-ink .pos{color:var(--inv-pos)} .w-ink .warn{color:var(--inv-warn)}
+.w-ink::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.08) 45%,transparent 60%);transform:translateX(-100%);animation:sheen 5s 1s var(--ease) infinite}
+.wc .wm{position:absolute;right:-14px;bottom:-30px;width:150px;height:150px;opacity:.08;pointer-events:none}
+
+/* dial */
+.dial{position:relative;width:216px;height:216px;margin:0 auto;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none;border-radius:50%}
+.dial.grab{cursor:grabbing}
+.dial svg{width:100%;height:100%;display:block}
+.dial .rot{transform-origin:120px 120px}
+.dial .tk{stroke:var(--line);stroke-width:1.6;stroke-linecap:round}
+.dial .tk.mj{stroke:var(--muted)}
+.dial .knob-d{fill:var(--fg)}
+.dial-c{position:absolute;inset:46px;border-radius:50%;border:1px solid var(--line);background:var(--bg);display:grid;place-items:center;align-content:center;gap:6px;text-align:center;transition:transform .35s var(--spring)}
+.dial.grab .dial-c{transform:scale(.95)}
+.dial-c svg{width:18px;height:18px;color:var(--muted)}
+.dial-c .label{font-size:9.5px}
+
+/* celebración + partículas */
+#fx{position:absolute;inset:0;width:100%;height:100%;z-index:126;pointer-events:none}
+.cele{position:absolute;inset:0;z-index:124;display:grid;place-items:center;align-content:center;gap:10px;background:color-mix(in srgb,var(--bg) 80%,transparent);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);opacity:0;pointer-events:none;transition:opacity .5s var(--ease);text-align:center}
+.cele.show{opacity:1}
+.cele-p{display:flex;gap:12px;align-items:flex-end;height:124px;margin-bottom:22px}
+.cele-p i{width:28px;background:var(--fg);transform-origin:bottom;transform:scaleY(0)}
+.cele-p i:nth-child(1){height:46px}.cele-p i:nth-child(2){height:82px}.cele-p i:nth-child(3){height:124px;clip-path:polygon(0 10px,10px 0,100% 0,100% 100%,0 100%)}
+.cele.show .cele-p i{animation:barUp 1s var(--spring) both}
+.cele.show .cele-p i:nth-child(2){animation-delay:.12s}.cele.show .cele-p i:nth-child(3){animation-delay:.24s}
+.cele h4{font-family:var(--f-display);font-weight:500;font-size:36px;letter-spacing:-.055em;margin:0;animation:none}
+.cele.show h4{animation:rise .8s .35s var(--ease) both}
+.cele p{margin:0;color:var(--muted);font-size:14px}
+
 /* ---------- Apertura ---------- */
 .replay{display:inline-flex;align-items:center;gap:10px;font-size:13.5px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:9px 16px;transition:color .25s,border-color .25s}
 .replay:hover{color:var(--fg);border-color:var(--muted)}
@@ -538,13 +660,14 @@ footer{margin-top:clamp(72px,10vw,128px);padding-top:28px;border-top:1px solid v
 </header>
 
 <main class="wrap">
-  <section class="hero" id="prototipo">
-    <div>
-      <p class="eyebrow">Prototipo interactivo · Versión 1.0</p>
-      <h1>Tú tienes el control.</h1>
-      <p class="lede">Tu dinero y tus hábitos, bajo tu control. <b>No al revés.</b></p>
-
-      <p class="jump-label">Recorre la app</p>
+  <div class="story" id="prototipo">
+    <div class="story-text">
+      <section class="intro step" data-i="-1">
+        <p class="eyebrow">Prototipo interactivo · Versión 1.0</p>
+        <h1 class="kin"><span class="w"><span style="animation-delay:.05s">Tú</span></span> <span class="w"><span style="animation-delay:.14s">tienes</span></span> <span class="w"><span style="animation-delay:.23s">el</span></span> <span class="w"><span style="animation-delay:.32s">control.</span></span></h1>
+        <span class="roller" id="roller" aria-label="Tu dinero, tus hábitos, tu tiempo, tu día"><span><span>Tu dinero.</span></span></span>
+        <p class="lede">Tu dinero y tus hábitos, bajo tu control. <b>No al revés.</b></p>
+        <p class="jump-label">Recorre la app</p>
       <div class="jump" id="jump">
         <button class="chip" data-goto="welcome">Bienvenida</button>
         <button class="chip" data-goto="inicio">Inicio</button>
@@ -553,20 +676,17 @@ footer{margin-top:clamp(72px,10vw,128px);padding-top:28px;border-top:1px solid v
         <button class="chip" data-goto="recordatorios">Recordatorios</button>
         <button class="chip" data-goto="perfil">Perfil</button>
       </div>
-
-      <ul class="tips">
-        <li><span class="k" data-ico="plus"></span><div><b>Registra un gasto en 2 toques.</b> Toca + y elige una sugerencia según la hora del día.</div></li>
-        <li><span class="k" data-ico="repeat"></span><div><b>Mantén presionado un círculo</b> para cumplir un hábito. El anillo se llena y la racha sube.</div></li>
-        <li><span class="k" data-ico="bell"></span><div><b>Escribe recordatorios como hablas:</b> “pagar renta 5,500 el día 1”.</div></li>
-        <li><span class="k" data-ico="eye"></span><div><b>Toca el ojo</b> para ocultar tus montos cuando estés en público.</div></li>
-      </ul>
-      <p class="sample-note">Todos los montos, nombres y fechas son datos de ejemplo.</p>
+        <p class="sample-note">Todos los montos, nombres y fechas son datos de ejemplo.</p>
+        <p class="scroll-cue"><i></i>Desliza y el teléfono te muestra cada idea</p>
+      </section>
+      <h2 class="story-h" id="ideas">Diez momentos que ninguna otra app tiene</h2>
+      <div id="steps"></div>
     </div>
-
+    <div class="story-phone"><div class="stick"><div class="pstage">
     <div class="phone-col">
       <div class="phone">
         <div class="app" id="app">
-          <div class="island"></div>
+          <div class="island" id="island"></div>
           <div class="status"><span id="clock">9:41</span>
             <span class="sys" aria-hidden="true">
               <svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="currentColor"/><rect x="5" y="5.5" width="3" height="6.5" rx="1" fill="currentColor"/><rect x="10" y="3" width="3" height="9" rx="1" fill="currentColor"/><rect x="15" y="0" width="3" height="12" rx="1" fill="currentColor"/></svg>
@@ -605,20 +725,15 @@ footer{margin-top:clamp(72px,10vw,128px);padding-top:28px;border-top:1px solid v
               <span class="sp-line"><i></i></span>
             </div>
           </div>
+          <canvas id="fx"></canvas>
+          <div class="cele" id="cele" aria-hidden="true"><div class="cele-p"><i></i><i></i><i></i></div><h4>Día perfecto</h4><p>Cumpliste todos tus hábitos de hoy</p></div>
           <div class="homebar"></div>
         </div>
       </div>
       <button class="replay" id="replay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4h4"/></svg>Abrir la app de nuevo</button>
     </div>
-  </section>
-
-  <section class="sec" id="ideas">
-    <div class="sec-head">
-      <h2>Diez ideas para que RENMAK se sienta distinta</h2>
-      <p>Cada idea ya funciona dentro del prototipo. Toca “Probar” y el teléfono te lleva directo a ella.</p>
-    </div>
-    <div class="ideas" id="ideasList"></div>
-  </section>
+    </div></div></div>
+  </div>
 
   <section class="sec" id="diseno">
     <div class="sec-head">
@@ -804,7 +919,7 @@ const S = {
   screen:'inicio', name:'Andrés', email:'andres@correo.com',
   privacy:false, offline:false, queue:0, faceId:false, themePref:'system',
   budget:14000, weekGoal:500, weekSaved:300, weeksDone:[1,1,0,1],
-  closeStreak:8, filter:'todos', openHabit:null, justDone:null,
+  closeStreak:8, filter:'todos', walletOpen:false, openHabit:null, justDone:null,
   accounts:[
     {id:'cash', name:'Efectivo', kind:'En tu cartera', bal:1850, i:'wallet'},
     {id:'debit', name:'Débito', kind:'Cuenta de nómina', bal:12430.40, i:'card'},
@@ -920,6 +1035,7 @@ R.inicio = () => {
     <header class="hd"><div><p class="eyebrow">${longDate(T0)}</p><h2 class="h-title">${greet()},<br>${esc(S.name)}</h2></div>
       <button class="icon-btn" data-act="privacy" aria-label="${S.privacy ? 'Mostrar montos' : 'Ocultar montos'}">${ico(S.privacy ? 'eyeOff' : 'eye')}</button></header>
     <section class="hero-open" id="heroCard">
+      <div class="aura" style="--tint:${b.daily && b.disp / b.daily > .5 ? 'var(--pos)' : b.disp > 0 ? 'var(--warn)' : 'var(--neg)'}"><i></i><i></i></div>
       <p class="label">Disponible hoy</p>
       ${big(b.disp, 'disp', b.disp < 0 ? 'neg' : '')}
       ${b.disp < 0 ? '<p class="sub">Te pasaste de tu límite diario. Mañana se reajusta solo.</p>' : ''}
@@ -968,6 +1084,23 @@ function spendChart() {
   return `<section class="card chart"><div class="sec-h" style="margin:0"><h3>Últimos 7 días</h3>${m(-total, { cls:'neg', key:'wk7' })}</div>
     <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Gasto por día en los últimos 7 días"><line x1="0" x2="${W}" y1="${base + .5}" y2="${base + .5}" stroke="var(--line)"/>${bars}</svg></section>`;
 }
+function wallet(corte, pago, dc, dp) {
+  const A = id => S.accounts.find(x => x.id === id), cash = A('cash'), deb = A('debit'), sav = A('save');
+  const WM = PILLARS.replace('<svg ', '<svg class="wm" ');
+  const card = (i, cls, id, head, body) => `<div class="wc ${cls}" data-wallet role="button" tabindex="0" id="wc-${id}" style="--i:${i}">${head}${body}</div>`;
+  return `<section id="walletSec"><div class="sec-h"><h3>Cartera</h3><button data-wallet-btn>${S.walletOpen ? 'Juntar' : 'Abrir'}</button></div>
+  <div class="wallet ${S.walletOpen ? 'open' : ''}" id="wallet" style="--n:4">
+    ${card(0, 'w-linen', 'cash', `<div class="wc-h"><span>Efectivo</span>${m(cash.bal, { key:'acc-cash' })}</div>`, `<div><p class="label">En tu cartera</p><span class="bigs amt">${nf0.format(cash.bal)}</span></div><div class="wc-f"><span class="sub">Billetes y monedas</span></div>`)}
+    ${card(1, 'w-paper', 'debit', `<div class="wc-h"><span>Débito</span>${m(deb.bal, { key:'acc-debit' })}</div>`, `<div><p class="label">Cuenta de nómina</p><span class="bigs amt">${nf0.format(deb.bal)}</span></div><div class="wc-f"><span class="sub amt">•••• 0937</span><span class="sub">Siguiente nómina en 12 días</span></div>`)}
+    ${card(2, 'w-stone', 'save', `<div class="wc-h"><span>Ahorro</span>${m(sav.bal, { key:'acc-save' })}</div>`, `<div><p class="label">Rinde 14.75% anual</p><span class="bigs amt">${nf0.format(sav.bal)}</span></div><div class="wc-f"><span><span class="label">Ganado hoy</span><b class="amt pos" id="yield">+${nf4.format(yieldNow(sav))}</b></span>${WM}</div>`)}
+    ${card(3, 'w-ink', 'credit', `<div class="wc-h"><span>${S.card.bank}</span><span class="amt">•••• ${S.card.last4}</span></div>`, `<div><p class="label">Saldo usado</p><span class="bigs amt">${nf.format(S.card.owed)}</span></div><div class="wc-f"><span><span class="label">Corte</span><b>${fd(corte)} · ${dc} días</b></span><span style="text-align:right"><span class="label">Pagar antes del</span><b class="${dp <= 3 ? 'warn' : ''}">${fd(pago)} · ${dp} días</b></span></div>`)}
+  </div>
+  <p class="sub" style="margin:14px 4px 0">Toca la cartera para abrirla. Paga ${m(S.card.owed, { cls: dp <= 3 ? 'warn' : '' })} antes del ${fd(pago)} y no pagas intereses.</p></section>`;
+}
+function setWallet(v) {
+  S.walletOpen = v; const w = $('#wallet', view); if (!w) return;
+  w.classList.toggle('open', v); const b = $('[data-wallet-btn]', view); if (b) b.textContent = v ? 'Juntar' : 'Abrir';
+}
 function yieldNow(a) { const daily = a.bal * a.rate / 365; return daily * (Date.now() - T0) / 864e5; }
 
 R.finanzas = () => {
@@ -982,18 +1115,7 @@ R.finanzas = () => {
       <div class="io"><div><p class="label">Entró este mes</p><div class="v">${m(io.i, { cls:'pos', sign:true, key:'mi' })}</div></div>
       <div><p class="label">Salió este mes</p><div class="v">${m(-io.o, { cls:'neg', key:'mo' })}</div></div></div></section>
     ${spendChart()}
-    <section><div class="sec-h"><h3>Cuentas</h3></div><div class="card list">
-      ${S.accounts.map(a => `<div class="li" ${a.rate ? 'id="yieldRow"' : ''}><span class="ic">${ico(a.i)}</span><div style="min-width:0"><div class="t">${a.name}</div><div class="m">${a.kind}</div></div>
-        <div class="r">${m(a.bal, { key:'acc-' + a.id })}${a.rate ? `<div class="live"><span class="amt pos" id="yield">+${nf4.format(yieldNow(a))}</span> <span class="sub" style="font-size:11px">hoy</span></div>` : ''}</div></div>`).join('')}
-    </div></section>
-    <section><div class="sec-h"><h3>Tarjeta de crédito</h3></div>
-      <div class="metal"><div class="top-r"><span>${S.card.bank}</span><span class="amt">•••• ${S.card.last4}</span></div>
-        <div><p class="lbl">Saldo usado</p><div class="owed amt">${nf.format(S.card.owed)}</div></div>
-        <div class="util" style="--p:${S.card.owed / S.card.limit}"><i></i></div>
-        <div class="dates"><div><span class="lbl">Fecha de corte</span><b>${fd(corte)} · en ${dc} días</b></div><div><span class="lbl">Pagar antes del</span><b>${fd(pago)} · en ${dp} días</b></div></div>
-      </div>
-      <p class="sub" style="margin:10px 4px 0">Paga ${m(S.card.owed, { cls: dp <= 3 ? 'warn' : '' })} antes del ${fd(pago)} y no pagas intereses.</p>
-    </section>
+    ${wallet(corte, pago, dc, dp)}
     <section><div class="sec-h"><h3>Suscripciones</h3><span class="sub">${m(-subT, { cls:'neg' })} al mes</span></div><div class="card list">
       ${S.subs.slice().sort((a, z) => nextDay(a.day) - nextDay(z.day)).map(s => `<div class="li"><span class="ic">${ico('repeat')}</span><div><div class="t">${s.n}</div><div class="m">Próximo cobro: ${relDay(nextDay(s.day))}</div></div><div class="r">${m(-s.amt, { cls: diff(nextDay(s.day), T0) <= 2 ? 'warn' : 'neg' })}</div></div>`).join('')}
     </div></section>
@@ -1176,7 +1298,8 @@ function go(scr, after) {
 }
 function spot(sel) {
   const el = typeof sel === 'string' ? $(sel, view) : sel; if (!el) return;
-  const top = el.getBoundingClientRect().top - view.getBoundingClientRect().top + view.scrollTop - 90;
+  const k = app.getBoundingClientRect().width / app.offsetWidth;
+  const top = (el.getBoundingClientRect().top - view.getBoundingClientRect().top) / k + view.scrollTop - 90;
   view.scrollTo({ top: Math.max(0, top), behavior: reduce ? 'auto' : 'smooth' });
   setTimeout(() => { el.classList.remove('spot'); void el.offsetWidth; el.classList.add('spot'); }, 350);
 }
@@ -1192,6 +1315,44 @@ function toast(html, act, fn) {
 const hideToast = () => $('#toast').classList.remove('show');
 const haptic = () => { try { navigator.vibrate && navigator.vibrate(8); } catch (e) {} };
 const change = () => { if (S.offline) S.queue++; };
+
+/* ---------- Isla dinámica ---------- */
+const isl = $('#island'); let islT, islT2;
+function island(html, mode = 'compact', ms = 2400) {
+  clearTimeout(islT); clearTimeout(islT2);
+  isl.innerHTML = `<div class="isl">${html}</div>`; isl.className = 'island ' + mode;
+  islT = setTimeout(() => { isl.className = 'island'; islT2 = setTimeout(() => { if (isl.className === 'island') isl.innerHTML = ''; }, 450); }, ms);
+}
+const islDot = (i, cls = '') => `<span class="dot ${cls}">${ico(i)}</span>`;
+
+/* ---------- Partículas y celebración ---------- */
+const fx = $('#fx'), fctx = fx.getContext('2d'); let parts = [], fxRaf = 0;
+function sizeFx() { const d = devicePixelRatio || 1; fx.width = app.offsetWidth * d; fx.height = app.offsetHeight * d; fctx.setTransform(d, 0, 0, d, 0, 0); }
+function burst(el, n = 28, spread = 1) {
+  if (reduce || !el) return;
+  if (fx.width !== Math.round(app.offsetWidth * (devicePixelRatio || 1))) sizeFx();
+  const a = app.getBoundingClientRect(), r = el.getBoundingClientRect(), k = a.width / app.offsetWidth;
+  const x = (r.left + r.width / 2 - a.left) / k, y = (r.top + r.height / 2 - a.top) / k;
+  const col = getComputedStyle(app).getPropertyValue('--fg').trim();
+  for (let i = 0; i < n; i++) {
+    const ang = Math.random() * Math.PI * 2, sp = (2 + Math.random() * 4.5) * spread;
+    parts.push({ x, y, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp - 2.4, life: 1, w: 2 + Math.random() * 2.5, h: 5 + Math.random() * 11, rot: Math.random() * 6, vr: (Math.random() - .5) * .3, col });
+  }
+  if (!fxRaf) fxRaf = requestAnimationFrame(fxTick);
+}
+function fxTick() {
+  fctx.clearRect(0, 0, app.offsetWidth, app.offsetHeight);
+  parts = parts.filter(p => p.life > 0);
+  parts.forEach(p => { p.vy += .16; p.vx *= .985; p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.life -= .017;
+    fctx.save(); fctx.globalAlpha = Math.max(0, p.life); fctx.translate(p.x, p.y); fctx.rotate(p.rot); fctx.fillStyle = p.col; fctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); fctx.restore(); });
+  fxRaf = parts.length ? requestAnimationFrame(fxTick) : 0;
+}
+function celebrate() {
+  const c = $('#cele'); c.classList.add('show'); haptic();
+  setTimeout(() => burst($('.cele-p', c), 60, 1.4), 500);
+  island(`<span>${islDot('check')}<span class="tx">Día perfecto</span></span><span>${S.habits.length}/${S.habits.length}</span>`, 'compact', 2600);
+  setTimeout(() => c.classList.remove('show'), reduce ? 1200 : 2600);
+}
 
 /* ---------- Sheets ---------- */
 function openSheet(html, mount) { $('#sheetBody').innerHTML = html; app.classList.add('sheet-open'); $('#sheetBody').scrollTop = 0; mount && mount($('#sheetBody')); }
@@ -1210,6 +1371,7 @@ function addTx(type, amt, cat, note, acc, taps) {
   S.tx.unshift(t);
   const a = S.accounts.find(x => x.id === acc); if (a) a.bal += type === 'in' ? amt : -amt;
   change(); closeSheet(); render(); haptic();
+  island(`<span>${islDot(CATS[cat].i)}<span class="tx">${esc(note)}</span></span>${m(type === 'in' ? amt : -amt, { cls: type === 'in' ? 'pos' : 'neg', sign: type === 'in' })}`);
   const broke = type === 'out' && CATS[cat].innecesario && before > 0;
   const msg = type === 'in' ? `Ingreso registrado ${m(amt, { cls:'pos', sign:true })}` : `${CATS[cat].n} ${m(-amt)}${taps && taps <= 3 ? ` · en ${taps} toques` : ''}`;
   toast(broke ? `${msg}. Tu racha de ${before} días se reinicia.` : msg, 'Deshacer', () => {
@@ -1226,14 +1388,28 @@ function openAdd() {
     <div class="amt-in amt"><span class="cur">$</span><span id="amtV">0</span><span class="caret"></span></div>
     <div class="hs" id="catRow">${cats.map(k => `<button class="chip ${k === cat ? 'on' : ''}" data-cat="${k}">${ico(CATS[k].i)}${CATS[k].n}</button>`).join('')}</div>
     <div class="hs" id="accRow">${S.accounts.map(a => `<button class="chip ${a.id === acc ? 'on' : ''}" data-acc="${a.id}">${a.name}</button>`).join('')}<button class="chip" data-acc="credit">Tarjeta de crédito</button></div>
-    <div class="keys">${['1','2','3','4','5','6','7','8','9','.','0','del'].map(k => `<button data-k="${k}" aria-label="${k === 'del' ? 'Borrar' : k}">${k === 'del' ? ico('del') : k}</button>`).join('')}</div>
+    <div style="display:flex;justify-content:center"><div class="seg" id="mSeg"><span class="knob" style="width:calc((100% - 6px)/2)"></span><button class="on" data-mode="dial">Dial</button><button data-mode="keys">Teclado</button></div></div>
+    ${dialHTML()}
+    <div class="keys" id="keysW" hidden>${['1','2','3','4','5','6','7','8','9','.','0','del'].map(k => `<button data-k="${k}" aria-label="${k === 'del' ? 'Borrar' : k}">${k === 'del' ? ico('del') : k}</button>`).join('')}</div>
     <button class="btn primary" id="saveTx" disabled>Registrar gasto</button>`, body => {
     const upd = () => {
       $('#amtV', body).textContent = amt ? Number(amt.replace(/\.$/, '')).toLocaleString('es-MX', { maximumFractionDigits:2 }) + (amt.endsWith('.') ? '.' : '') : '0';
+      dialAcc = (+amt || 0) / 5 * 6; $('#dialRot', body).style.transform = `rotate(${dialAcc}deg)`;
       const ok = +amt > 0; const b = $('#saveTx', body); b.disabled = !ok; b.textContent = type === 'out' ? 'Registrar gasto' : 'Registrar ingreso';
     };
+    let dialAcc = 0, lastA = null, lastStep = 0;
+    const dial = $('#dial', body), rot = $('#dialRot', body);
+    const ang = e => { const r = dial.getBoundingClientRect(); return Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2)) * 180 / Math.PI; };
+    const fromDial = () => { const st = Math.floor(dialAcc / 6); if (st !== lastStep) { lastStep = st; haptic(); } amt = st > 0 ? String(st * 5) : ''; rot.style.transform = `rotate(${dialAcc}deg)`;
+      $('#amtV', body).textContent = amt ? Number(amt).toLocaleString('es-MX') : '0'; const b = $('#saveTx', body); b.disabled = !(+amt > 0); dial.setAttribute('aria-valuenow', amt || 0); };
+    dial.addEventListener('pointerdown', e => { dial.setPointerCapture(e.pointerId); lastA = ang(e); dial.classList.add('grab'); });
+    dial.addEventListener('pointermove', e => { if (lastA == null) return; const a2 = ang(e); let d = a2 - lastA; if (d > 180) d -= 360; if (d < -180) d += 360; lastA = a2; dialAcc = Math.max(0, Math.min(dialAcc + d, 6 * 2000)); fromDial(); });
+    ['pointerup','pointercancel'].forEach(ev => dial.addEventListener(ev, () => { lastA = null; dial.classList.remove('grab'); }));
+    dial.addEventListener('wheel', e => { e.preventDefault(); dialAcc = Math.max(0, dialAcc - e.deltaY * .4); fromDial(); }, { passive:false });
+    dial.addEventListener('keydown', e => { const k = { ArrowUp:6, ArrowRight:6, ArrowDown:-6, ArrowLeft:-6 }[e.key]; if (k) { e.preventDefault(); dialAcc = Math.max(0, Math.floor(dialAcc / 6) * 6 + k); fromDial(); } });
     body.onclick = e => {
       const t = e.target.closest('button'); if (!t) return; taps++;
+      if (t.dataset.mode) { const kp = t.dataset.mode === 'keys'; $$('#mSeg button', body).forEach(x => x.classList.toggle('on', x === t)); $('#mSeg .knob', body).style.transform = `translateX(${kp ? 100 : 0}%)`; dial.hidden = kp; $('#keysW', body).hidden = !kp; return; }
       if (t.dataset.sug) { const [c, n, a] = t.dataset.sug.split('|'); addTx('out', +a, c, n, c === 'cafe' || c === 'transporte' && +a < 20 ? 'cash' : 'debit', taps); return; }
       if (t.dataset.t) { type = t.dataset.t; $$('#tSeg button', body).forEach(x => x.classList.toggle('on', x === t)); $('#tSeg .knob', body).style.transform = `translateX(${type === 'in' ? 100 : 0}%)`;
         $('#sugWrap', body).hidden = type === 'in'; $('#catRow', body).hidden = type === 'in'; upd(); return; }
@@ -1251,6 +1427,11 @@ function openAdd() {
       }
     };
   });
+}
+function dialHTML() {
+  let tk = ''; for (let i = 0; i < 60; i++) { const mj = i % 5 === 0; tk += `<line class="tk ${mj ? 'mj' : ''}" x1="120" y1="${mj ? 12 : 16}" x2="120" y2="26" transform="rotate(${i * 6} 120 120)"/>`; }
+  return `<div class="dial" id="dial" role="slider" tabindex="0" aria-label="Gira para elegir el monto" aria-valuemin="0" aria-valuenow="0"><svg viewBox="0 0 240 240" aria-hidden="true"><circle cx="120" cy="120" r="106" fill="none" stroke="var(--line)"/><g class="rot" id="dialRot">${tk}<circle class="knob-d" cx="120" cy="40" r="5"/></g></svg>
+    <div class="dial-c">${ico('repeat')}<span class="label">Gira</span><span class="label" style="letter-spacing:.04em">$5 por paso</span></div></div>`;
 }
 function openNewHabit() {
   const presets = [['Meditar','10 minutos','spark'],['Caminar','8,000 pasos','dumbbell'],['Sin redes antes de dormir','Desde las 22:00','moon'],['Agua','8 vasos','drop']];
@@ -1295,17 +1476,20 @@ function openCloseDay() {
   });
 }
 function faceIdAnim(done) {
-  const f = $('#fid'), box = $('#fidBox');
-  box.innerHTML = ico('face'); f.classList.add('show', 'scan');
-  setTimeout(() => { f.classList.remove('scan'); box.innerHTML = `<span style="display:grid;place-items:center;gap:8px;font-size:12px">${ico('check')}Face ID listo</span>`; }, reduce ? 50 : 1100);
-  setTimeout(() => { f.classList.remove('show'); done && done(); }, reduce ? 100 : 1900);
+  island(`<span class="isl-big pulse">${ico('face')}</span><span class="isl-t"><b>Face ID</b><i>Mira tu teléfono</i></span>`, 'expanded', 2400);
+  setTimeout(() => { isl.querySelector('.isl').innerHTML = `<span class="isl-big">${ico('check')}</span><span class="isl-t"><b>Face ID</b><i>Listo. Tu app está protegida.</i></span>`; }, reduce ? 50 : 1200);
+  setTimeout(() => { done && done(); }, reduce ? 100 : 1900);
 }
 
 /* ---------- Habits ---------- */
 function completeHabit(id) {
   const h = S.habits.find(x => x.id === id); if (!h || isDone(h)) return;
-  h.done = true; h.streak++; S.justDone = id; change(); haptic(); render();
-  if (S.habits.every(isDone)) setTimeout(() => toast('Todos tus hábitos de hoy, cumplidos.'), 500);
+  burst(view.querySelector(`[data-hold="${id}"]`));
+  h.done = true; h.streak++; S.justDone = id; change(); haptic(); render(); habitDone(h);
+}
+function habitDone(h) {
+  island(`<span>${islDot('check')}<span class="tx">${esc(h.n)}</span></span><span>Racha <span class="num">${h.streak}</span></span>`);
+  if (S.habits.every(isDone)) setTimeout(celebrate, 700);
 }
 function undoHabit(id) {
   const h = S.habits.find(x => x.id === id); if (!h || !isDone(h)) return;
@@ -1319,6 +1503,7 @@ view.addEventListener('pointerdown', e => {
 });
 const cancelHold = () => { clearTimeout(holdT); if (holdEl) holdEl.classList.remove('holding'); holdEl = null; };
 ['pointerup','pointerleave','pointercancel'].forEach(ev => view.addEventListener(ev, cancelHold));
+view.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('[data-wallet]')) { e.preventDefault(); setWallet(!S.walletOpen); } });
 view.addEventListener('contextmenu', e => { if (e.target.closest('[data-hold]')) e.preventDefault(); });
 
 /* ---------- Natural language reminders ---------- */
@@ -1416,7 +1601,8 @@ function mountAuth() {
 
 /* ---------- App click delegation ---------- */
 app.addEventListener('click', e => {
-  const t = e.target.closest('button'); if (!t || !app.contains(t) || t.closest('#sheet')) return;
+  const t = e.target.closest('button,[data-wallet]'); if (!t || !app.contains(t) || t.closest('#sheet')) return;
+  if (t.hasAttribute('data-wallet') || t.hasAttribute('data-wallet-btn')) { haptic(); return setWallet(!S.walletOpen); }
   if (t.dataset.go) return go(t.dataset.go);
   if (t.dataset.hold) {
     if (Date.now() - heldAt < 500) return;
@@ -1427,13 +1613,16 @@ app.addEventListener('click', e => {
   if (t.dataset.inc) {
     const h = S.habits.find(x => x.id === t.dataset.inc);
     if (isDone(h)) return undoHabit(h.id);
-    h.count++; haptic(); change(); if (h.count >= h.target) { h.streak++; S.justDone = h.id; } render(); return;
+    h.count++; haptic(); change();
+    if (h.count >= h.target) { burst(t); h.streak++; S.justDone = h.id; render(); habitDone(h); } else render();
+    return;
   }
   if (t.dataset.sel) { S.openHabit = S.openHabit === t.dataset.sel ? null : t.dataset.sel; t.closest('.hc-wrap').classList.toggle('open'); t.setAttribute('aria-expanded', S.openHabit === t.dataset.sel); return; }
-  if (t.dataset.done) { const r = S.reminders.find(x => x.id === +t.dataset.done); r.done = !r.done; haptic(); change(); t.closest('.li').classList.toggle('is-done', r.done); setTimeout(render, 450); return; }
+  if (t.dataset.done) { const r = S.reminders.find(x => x.id === +t.dataset.done); r.done = !r.done; haptic(); change(); if (r.done) island(`<span>${islDot('check')}<span class="tx">${esc(r.t)}</span></span><span>Hecho</span>`); t.closest('.li').classList.toggle('is-done', r.done); setTimeout(render, 450); return; }
   if (t.dataset.filter) { S.filter = t.dataset.filter; render(); return; }
   if (t.dataset.goal) {
     const g = S.goals.find(x => x.id === t.dataset.goal), d = S.accounts.find(a => a.id === 'debit');
+    burst(t, 18); island(`<span>${islDot('piggy')}<span class="tx">${esc(g.n)}</span></span>${m(200, { cls:'pos', sign:true })}`);
     g.saved += 200; d.bal -= 200; S.weekSaved += 200; S.tx.unshift(tx(0, 'save', 200, 'ahorro', `Ahorro · ${g.n}`, 'debit')); change(); haptic(); render();
     toast(S.weekSaved >= S.weekGoal && S.weekSaved - 200 < S.weekGoal ? 'Meta de ahorro semanal cumplida' : `${m(200)} apartados para ${esc(g.n)}`); return;
   }
@@ -1459,8 +1648,10 @@ fab.addEventListener('click', () => {
 });
 function setOffline(v) {
   S.offline = v; render();
-  if (!v) { const q = S.queue; S.queue = 0; toast(q ? `Sincronizando ${q} ${q === 1 ? 'cambio' : 'cambios'}…` : 'Conectado'); setTimeout(() => { render(); q && toast('Todo sincronizado'); }, 1300); }
-  else toast('Sin conexión. Sigue usando la app con normalidad.');
+  if (!v) { const q = S.queue; S.queue = 0;
+    island(`<span><span class="spin"></span><span class="tx">Sincronizando</span></span><span class="num">${q}</span>`, 'compact', 1400);
+    setTimeout(() => { render(); island(`<span>${islDot('cloud')}<span class="tx">Todo al día</span></span>${ico('check', 14)}`, 'compact', 1800); }, 1500); }
+  else island(`<span>${islDot('cloud')}<span class="tx">Sin conexión</span></span><span style="color:var(--isl-warn)">Guardando</span>`, 'compact', 2200);
 }
 
 /* ---------- Theme ---------- */
@@ -1485,21 +1676,73 @@ const phone = $('.phone');
 const showPhone = () => { const r = phone.getBoundingClientRect(); if (r.top < 60 || r.bottom > innerHeight + 40) phone.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block:'center' }); };
 $('#jump').addEventListener('click', e => { const c = e.target.closest('[data-goto]'); if (c) { showPhone(); go(c.dataset.goto); } });
 
+function setPrivacy(v) { S.privacy = v; render(); }
+function demoIsland() {
+  const r = S.reminders.filter(x => !x.done).sort((p, q) => p.date - q.date)[0]; if (!r) return;
+  island(`<span class="isl-big">${ico(typeIco[r.type])}</span><span class="isl-t"><b>${esc(r.t)}</b><i>${relDay(r.date)}${r.time ? ' · ' + r.time : ''}</i></span>${r.amt ? `<span class="isl-amt amt ${r.type === 'cobro' ? 'pos' : 'warn'}">${nf0.format(r.amt)}</span>` : ''}`, 'expanded', 3400);
+}
+function demoHold() {
+  const h = S.habits.find(x => x.kind === 'bool' && !x.done);
+  if (!h) return spot('.hc-wrap');
+  const el = view.querySelector(`[data-hold="${h.id}"]`); spot(el.closest('.hc-wrap'));
+  setTimeout(() => { const e2 = view.querySelector(`[data-hold="${h.id}"]`); e2 && e2.classList.add('holding'); setTimeout(() => completeHabit(h.id), reduce ? 50 : 760); }, reduce ? 0 : 900);
+}
 const IDEAS = [
-  ['Disponible hoy', 'Un solo número al abrir la app: cuánto puedes gastar hoy sin salirte del mes. Se recalcula cada vez que registras algo.', '1.0', () => go('inicio', () => spot('#heroCard'))],
-  ['Índice de control', 'Los Pilares del logo cobran vida: dinero, hábitos y ritmo suben o bajan según tu día y forman una calificación de 0 a 100.', '1.0', () => go('inicio', () => spot('#ctrlCard'))],
-  ['Registro en dos toques', 'Toca + y elige una sugerencia según la hora: café en la mañana, comida a mediodía, Uber en la noche. Siempre con opción de deshacer.', '1.0', () => go('inicio', () => setTimeout(openAdd, 250))],
-  ['Mantén presionado para cumplir', 'Un hábito no se marca por accidente. El anillo se llena mientras presionas y la racha sube con una vibración suave.', '1.0', () => go('habitos', () => spot('.hc-wrap'))],
-  ['Rendimiento en vivo', 'Tu cuenta de ahorro muestra lo que gana hoy, segundo a segundo. Ver tu dinero trabajar motiva a guardar más.', '1.0', () => go('finanzas', () => spot('#yieldRow'))],
-  ['Recordatorios como hablas', 'Escribe “pagar renta 5,500 el día 1” y RENMAK detecta tipo, monto y fecha antes de que termines.', '1.0', () => go('recordatorios', () => setTimeout(() => typeInto('pagar renta 5,500 el día 1'), 300))],
-  ['Modo privado', 'Un toque al ojo difumina todos los montos. Útil en el metro, en la oficina o cuando alguien mira tu pantalla.', '1.0', () => go('inicio', () => { S.privacy = !S.privacy; render(); toast(S.privacy ? 'Montos ocultos' : 'Montos visibles'); })],
-  ['Racha honesta', 'Los hábitos financieros cuentan días sin gastos innecesarios. Registrar un antojo reinicia la racha sin regaños.', '1.0', () => go('finanzas', () => spot('#finHabits'))],
-  ['Sin internet, sin pausa', 'Todo se guarda en el teléfono y se sincroniza al volver la señal. Activa la simulación y registra algo.', '1.0', () => go('perfil', () => { if (!S.offline) setOffline(true); spot('#syncSec'); })],
-  ['Cierre del día', 'Un ritual nocturno de 30 segundos: cuánto gastaste, qué hábitos cumpliste y qué viene mañana.', '1.0', () => go('inicio', () => setTimeout(openCloseDay, 250))]
+  { t:'Disponible hoy', d:'Un solo número al abrir la app: cuánto puedes gastar hoy sin salirte del mes. Un aura suave detrás cambia de tono según cómo vas.', enter:() => go('inicio', () => spot('#heroCard')) },
+  { t:'Una isla que te habla', d:'La Dynamic Island confirma cada gasto, celebra cada racha y te avisa del siguiente pago. Sin abrir la app.', enter:() => go('inicio', () => setTimeout(demoIsland, 300)) },
+  { t:'Un dial de dinero', d:'Gira para sumar de $5 en $5, como la corona de un reloj fino, con una vibración en cada paso. El teclado sigue ahí para montos exactos.', enter:() => go('inicio', () => setTimeout(openAdd, 250)), leave:closeSheet },
+  { t:'Mantén para cumplir', d:'El anillo se llena mientras presionas y estalla en pequeños pilares. Si cumples todos tus hábitos, el día se celebra solo.', enter:() => go('habitos', demoHold) },
+  { t:'Tu cartera, en capas', d:'Cuentas y tarjeta apiladas como en una cartera de piel. Tócalas y se abren. Tu ahorro muestra lo que gana segundo a segundo.', enter:() => go('finanzas', () => { spot('#walletSec'); setTimeout(() => setWallet(true), reduce ? 0 : 700); }), leave:() => setWallet(false) },
+  { t:'Índice de control', d:'Los Pilares del logo cobran vida: dinero, hábitos y ritmo suben o bajan con tu día y forman una calificación de 0 a 100.', enter:() => go('inicio', () => spot('#ctrlCard')) },
+  { t:'Escribe como hablas', d:'Escribe “pagar renta 5,500 el día 1” y RENMAK detecta tipo, monto y fecha antes de que termines.', enter:() => go('recordatorios', () => setTimeout(() => typeInto('pagar renta 5,500 el día 1'), 300)) },
+  { t:'Modo privado', d:'Un toque al ojo difumina todos los montos. Para el metro, la oficina o cuando alguien mira tu pantalla.', enter:() => go('inicio', () => setPrivacy(true)), leave:() => setPrivacy(false) },
+  { t:'Sin internet, sin pausa', d:'Todo se guarda en el teléfono y se sincroniza al volver la señal. La isla te dice cuándo terminó.', enter:() => go('perfil', () => { if (!S.offline) setOffline(true); spot('#syncSec'); }), leave:() => { if (S.offline) setOffline(false); } },
+  { t:'Cierre del día', d:'Un ritual nocturno de 30 segundos: cuánto gastaste, qué hábitos cumpliste y qué viene mañana.', enter:() => go('inicio', () => setTimeout(openCloseDay, 250)), leave:closeSheet }
 ];
-$('#ideasList').innerHTML = IDEAS.map(([t, d, v], i) => `<article class="idea"><span class="n">${String(i + 1).padStart(2, '0')}</span><div><h3>${t}</h3><p>${d}</p>
-  <div class="foot"><button class="try" data-try="${i}">Probar ${ico('chev')}</button><span class="ver">Versión ${v}</span></div></div></article>`).join('');
-$('#ideasList').addEventListener('click', e => { const b = e.target.closest('[data-try]'); if (!b) return; showPhone(); setTimeout(() => IDEAS[+b.dataset.try][3](), reduce ? 0 : 350); });
+$('#steps').innerHTML = IDEAS.map((x, i) => `<article class="step idea-step" data-i="${i}"><span class="n">${String(i + 1).padStart(2, '0')} / 10</span><h3>${x.t}</h3><p>${x.d}</p>
+  <div class="foot"><button class="try" data-try="${i}">Probar ${ico('chev')}</button><span class="ver">Versión 1.0</span></div></article>`).join('');
+$('#steps').addEventListener('click', e => { const b = e.target.closest('[data-try]'); if (!b) return; showPhone(); setTimeout(() => IDEAS[+b.dataset.try].enter(), reduce ? 0 : 350); });
+
+const story = matchMedia('(min-width: 961px)');
+let activeStep = -1;
+function activate(i) {
+  if (i === activeStep) return;
+  const was = activeStep; activeStep = i;
+  $$('.idea-step').forEach(x => x.classList.toggle('active', +x.dataset.i === i));
+  if (app.classList.contains('booting')) return;
+  if (was >= 0) IDEAS[was].leave?.();
+  if (i >= 0) IDEAS[i].enter();
+}
+const stepObs = new IntersectionObserver(es => { if (!story.matches) return; es.forEach(e => { if (e.isIntersecting) activate(+e.target.dataset.i); }); }, { rootMargin:'-50% 0px -50% 0px' });
+$$('.step').forEach(x => stepObs.observe(x));
+function fit() {
+  root.classList.toggle('js-story', story.matches);
+  root.style.setProperty('--s', story.matches ? Math.min(1, (innerHeight - 100) / 864).toFixed(3) : '1');
+}
+fit(); addEventListener('resize', fit); story.addEventListener?.('change', fit);
+
+/* inclinación 3D del teléfono */
+const phoneEl = $('.phone');
+if (!reduce && matchMedia('(hover: hover)').matches) {
+  $('.story-phone').addEventListener('pointermove', e => {
+    if (!story.matches) return;
+    const r = phoneEl.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    phoneEl.style.transform = `perspective(1800px) rotateY(${(clamp(x, -.8, .8) * 7).toFixed(2)}deg) rotateX(${(-clamp(y, -.8, .8) * 5).toFixed(2)}deg)`;
+    phoneEl.style.setProperty('--gx', ((x + .5) * 100).toFixed(1) + '%'); phoneEl.style.setProperty('--gy', ((y + .5) * 100).toFixed(1) + '%');
+  });
+  $('.story-phone').addEventListener('pointerleave', () => { phoneEl.style.transform = ''; });
+}
+
+/* frase que rueda */
+(() => {
+  const el = $('#roller'), items = ['Tu dinero.', 'Tus hábitos.', 'Tu tiempo.', 'Tu día.'];
+  el.innerHTML = `<span>${[...items, items[0]].map(t => `<span>${t}</span>`).join('')}</span>`;
+  const inner = el.firstElementChild; let i = 0; if (reduce) return;
+  setInterval(() => {
+    i++; inner.style.transition = ''; inner.style.transform = `translateY(${-i * 1.1}em)`;
+    if (i === items.length) setTimeout(() => { inner.style.transition = 'none'; i = 0; inner.style.transform = 'none'; }, 950);
+  }, 2600);
+})();
 
 const topEl = $('#top'); addEventListener('scroll', () => topEl.classList.toggle('scrolled', scrollY > 8), { passive:true });
 
@@ -1532,8 +1775,8 @@ function launch() {
   at(950, () => icon.classList.add('tap'));
   at(1150, () => {
     icon.classList.remove('tap');
-    const a = app.getBoundingClientRect(), r = icon.getBoundingClientRect();
-    sp.style.clipPath = `inset(${r.top - a.top}px ${a.right - r.right}px ${a.bottom - r.bottom}px ${r.left - a.left}px round 16px)`;
+    const a = app.getBoundingClientRect(), r = icon.getBoundingClientRect(), k = a.width / app.offsetWidth;
+    sp.style.clipPath = `inset(${(r.top - a.top) / k}px ${(a.right - r.right) / k}px ${(a.bottom - r.bottom) / k}px ${(r.left - a.left) / k}px round 16px)`;
     $('.sp-in', sp).style.transform = 'scale(.3)';
     sp.classList.add('on'); app.classList.add('splashing'); void sp.offsetWidth;
     sp.classList.add('zoom'); sp.style.clipPath = 'inset(0px 0px 0px 0px round 46px)';
@@ -1546,7 +1789,7 @@ function launch() {
     sp.classList.add('out'); app.classList.remove('splashing');
     app.classList.remove('booting');
     view.classList.add('boot'); render(); view.scrollTop = 0;
-    at(1400, () => { view.classList.remove('boot'); sp.className = 'splash'; sp.style.clipPath = ''; if (S.faceId) faceIdAnim(); });
+    at(1400, () => { view.classList.remove('boot'); sp.className = 'splash'; sp.style.clipPath = ''; if (S.faceId) faceIdAnim(); else if (activeStep >= 0 && story.matches) IDEAS[activeStep].enter(); });
   });
 }
 $('#replay').addEventListener('click', () => { showPhone(); launch(); });
